@@ -1,0 +1,94 @@
+<?php
+
+/**
+ * @file
+ * Orderbox Domain Checker module.
+ *
+ * @author: Adolfo G. Nasol http://drupal.org/user/547004
+ *
+ */
+
+/**
+ * Implements hook_help().
+ */
+function orderbox_domains_help($path, $arg) {
+  switch ($path) {
+    case 'admin/help#orderbox_domains':
+      return t("<p>This module uses <a href='http://www.logicboxes.com/orderbox'>Orderbox HTTP API</a> to check for domain name availability and returns several suggestion if it isn't available.</p>");
+  }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function orderbox_domains_menu() { 
+  $items = array();
+  
+  $items['admin/config/system/orderbox/domains'] = array(
+    'title' => 'Domain Checker',
+    'description' => 'Settings for Ordebox Domains',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('orderbox_domains_settings'),
+	'file' => 'orderbox_domains.admin.inc',
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_LOCAL_TASK,
+  );
+  
+  return $items;
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function orderbox_domains_block_info() {
+  $blocks['orderbox_domains_block'] = array(
+    'info' => t('Domain Name Checker'),
+    'cache' => DRUPAL_NO_CACHE,
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function orderbox_domains_block_view($delta = '') {
+  $block = array();
+
+  switch ($delta) {
+    case 'orderbox_domains_block':
+      $block['subject'] = t('Find Domain Name');
+      $block['content'] = drupal_get_form('orderbox_domains_form');
+      break;
+  }
+  return $block;
+}
+
+/**
+* TODO!
+* Orderbox Domain Form 
+*
+*/
+function orderbox_domains_form($form, &$form_state) {
+  $options = array('.com','.net','.org');
+  
+  $form['domain_name'] = array(
+    '#type' => 'textfield',
+    '#default_value' =>  t('domain'),
+	'#size' => 15,
+	'#field_prefix' => t('www.'),
+   );	
+  $form['tld'] = array(
+	'#type' => 'select',
+	'#options' => $options,
+	'#default_value' => '.com',
+	'#multiple' => FALSE, 
+  );
+  $form['check'] = array(
+  '#type' => 'submit',
+  '#value' => t('Check'),
+  );
+  $form['#method'] = 'get';
+
+  return $form;
+}

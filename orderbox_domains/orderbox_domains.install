@@ -1,0 +1,29 @@
+<?php
+
+/**
+ * @file
+ * Install script for Orderbox Domain Checker
+ *
+ * @author: Adolfo G. Nasol http://drupal.org/user/547004
+ *
+ */
+
+/**
+ * Implements hook_install().
+ *
+ * Set message and set default servlet URL
+ */
+function orderbox_domains_install() {
+  drupal_set_message(t("Orderbox Domains is installed successfully. Click here to visit the <a href=@href>settings page</a>!", array('@href' => base_path() . 'admin/config/system/orderbox/domains')));
+ 
+}
+
+/**
+ * Implements hook_uninstall().
+ *
+ * Cleanup variables
+ */
+function orderbox_domains_uninstall() {
+  drupal_set_message(t("Orderbox Domains modules and it's settings was removed."));
+  
+}

@@ -1,0 +1,8 @@
+name = Orderbox Domains
+description = Check or find available domain names for future registration.
+package = Orderbox
+core = 7.x
+
+files[] = orderbox_domains.admin.inc
+files[] = orderbox_domains.module
+files[] = orderbox_domains.install

@@ -1,0 +1,1 @@
+<?php/** * @file * Settings for Orderbox Domain Checker * * @author: Adolfo G. Nasol http://drupal.org/user/547004 * */function orderbox_domains_settings() {  drupal_set_message(t('Orderbox Domain Checker module still needs a lot of work.'), 'status');}

@@ -1,0 +1,133 @@
+<?php
+
+/**
+ * @file
+ * Orderbox Login module.
+ *
+ * @author: Adolfo G. Nasol http://drupal.org/user/547004
+ *
+ */
+
+/**
+ * Implements hook_help().
+ */
+function orderbox_login_help($path, $arg) {
+  switch ($path) {
+    case 'admin/help#orderbox_login':
+      return t("<p>Allow you to login into your Orderbox Domain Control panel within a drupal site.</p>");
+  }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function orderbox_login_menu() {
+  $items = array();
+  
+   $items['admin/config/system/orderbox'] = array(
+    'title' => 'Orderbox',
+    'description' => 'Configuration and settings for Orderbox/Logicboxes Suite of Modules',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('orderbox_login_settings'),
+    'file' => 'orderbox_login.admin.inc',
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_NORMAL_ITEM,
+  ); 
+   $items['admin/config/system/orderbox/login'] = array(
+    'title' => 'Login Block',
+    'description' => 'Login block Settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('orderbox_login_settings'),
+    'file' => 'orderbox_login.admin.inc',
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+  ); 
+  
+  return $items;
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function orderbox_login_block_info() {
+  $blocks['orderbox_login_block'] = array(
+    'info' => t('Orderbox Login'),
+    'cache' => DRUPAL_NO_CACHE,
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function orderbox_login_block_view($delta = '') {
+  $block = array();
+
+  switch ($delta) {
+    case 'orderbox_login_block':
+      $block['subject'] = t('Login to Manage Domain');
+      $block['content'] = drupal_get_form('orderbox_login_form');
+      break;
+  }
+  return $block;
+}
+
+/**
+ * Implements hook_form().
+ *
+ * Produce a form for the mini_form block
+ */
+function orderbox_login_form() {
+  $form = array();
+  $options = 
+  
+  $form['#action'] = variable_get('orderbox_login_action_url');
+  $form['redirectpage'] = array(
+    '#type' => 'hidden', 
+	'#value' => 'null',
+  );
+  $form['currenturl'] = array(
+    '#type' => 'hidden', 
+	'#value' => variable_get('orderbox_control_panel_branded_url'),
+  );
+  $form['pid'] = array(
+    '#type' => 'hidden', 
+	'#value' => variable_get('orderbox_reseller_id'),
+  );
+  $form['username'] = array(
+    '#type' => 'textfield', 
+	'#id' => 'login-username',
+	'#size' => '',
+	'#attributes' => array('placeholder' => t('Email Address')),
+	'#default_value' => '',
+  );
+  $form['password'] = array(
+    '#type' => 'password', 
+	'#id' => 'login-password',
+	'#size' => '',
+	'#attributes' => array('placeholder' => t('Password')),
+	'#default_value' => '',
+  );
+ if(variable_get('orderbox_allow_reseller_login'))
+   {
+     $form['role'] = array(
+       '#type' => 'select',
+	   '#id' => 'login-role',
+	   '#options' => array(
+          'customer' => t('Customer'),
+	      'reseller' => t('Reseller'))	
+	  );
+    } else {
+     $form['role'] = array(
+	   '#type' => 'hidden',
+	   '#value' => t('customer'),
+      );
+   };
+  $form['submit'] = array(
+  '#type' => 'submit',
+  '#value' => t('Login'),
+  );	
+
+  return $form;
+}
