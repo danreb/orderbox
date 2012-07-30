@@ -29,8 +29,9 @@ function orderbox_domains_menu() {
     'description' => 'Settings for Ordebox Domains',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('orderbox_domains_settings'),
-	'file' => 'orderbox_domains.admin.inc',
+    'file' => 'orderbox_domains.admin.inc',
     'access arguments' => array('administer site configuration'),
+    'weight' => -6, 
     'type' => MENU_LOCAL_TASK,
   );
   
@@ -70,23 +71,23 @@ function orderbox_domains_block_view($delta = '') {
 *
 */
 function orderbox_domains_form($form, &$form_state) {
-  $options = array('.com','.net','.org');
+  $options = array('.com', '.net', '.org');
   
   $form['domain_name'] = array(
     '#type' => 'textfield',
-    '#default_value' =>  t('domain'),
-	'#size' => 15,
-	'#field_prefix' => t('www.'),
-   );	
+    '#default_value' => t('domain'),
+    '#size' => 15,
+    '#field_prefix' => t('www.'),
+  );
   $form['tld'] = array(
-	'#type' => 'select',
-	'#options' => $options,
-	'#default_value' => '.com',
-	'#multiple' => FALSE, 
+    '#type' => 'select',
+    '#options' => $options,
+    '#default_value' => '.com',
+    '#multiple' => FALSE,
   );
   $form['check'] = array(
-  '#type' => 'submit',
-  '#value' => t('Check'),
+    '#type' => 'submit',
+    '#value' => t('Check'),
   );
   $form['#method'] = 'get';
 

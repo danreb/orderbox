@@ -21,21 +21,21 @@ function orderbox_login_settings() {
     '#title' => t('Foundation API Servlet URL'),
     '#default_value' => variable_get('orderbox_login_action_url'),
     '#description' => t('Servlet URL, use in form actions, change this if in case your not using the same URL.'),
-	'#required' => TRUE,
+    '#required' => TRUE,
   );
   $form['orderbox_login_settings']['orderbox_control_panel_branded_url'] = array(
     '#type' => 'textfield',
     '#title' => t('Control Panel URL'),
     '#default_value' => variable_get('orderbox_control_panel_branded_url'),
     '#description' => t('You can either use the Partially Branded URL or the Fully Branded URL.<br />To get your Domain Control Panel URL, point to <strong>Settings ->Branding Settings</strong> and then click <strong>Control Panel</strong>.'),
-	'#required' => TRUE,
+    '#required' => TRUE,
   );
   $form['orderbox_login_settings']['orderbox_reseller_id'] = array(
     '#type' => 'textfield',
     '#title' => t('Reseller ID'),
     '#default_value' => variable_get('orderbox_reseller_id'),
     '#description' => t('To get your Reseller Id, login from within your Reseller Control Panel.<br />Go to <strong>Settings -> Personal Information</strong> and then click <strong>Primary Profile</strong>. The first field is your Reseller Id.'),
-	'#required' => TRUE,
+    '#required' => TRUE,
   );
   $form['orderbox_login_settings']['orderbox_allow_reseller_login'] = array(
     '#type' => 'checkbox',

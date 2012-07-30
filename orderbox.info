@@ -1,0 +1,7 @@
+name = Orderbox
+description = OrderBox Drupal Integration.
+package = Orderbox
+core = 7.x
+
+files[] = orderbox.module
+files[] = orderbox.install

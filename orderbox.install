@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * Install script for Orderbox
+ *
+ * @author: Adolfo G. Nasol http://drupal.org/user/547004
+ *
+ */
+
+/**
+ * Implements hook_install().
+ *
+ * Set message
+ */
+function orderbox_install() {
+  drupal_set_message(st("Orderbox is installed.")));
+ 
+}

@@ -11,10 +11,10 @@
 /**
  * Implements hook_install().
  *
- * Set message and set default servlet URL
+ * Set message and inform users of the settings path
  */
 function orderbox_domains_install() {
-  drupal_set_message(t("Orderbox Domains is installed successfully. Click here to visit the <a href=@href>settings page</a>!", array('@href' => base_path() . 'admin/config/system/orderbox/domains')));
+  drupal_set_message(st("Orderbox Domains is installed successfully. Click here to visit the <a href=@href>settings page</a>!", array('@href' => base_path() . 'admin/config/system/orderbox/domains')));
  
 }
 
@@ -24,6 +24,6 @@ function orderbox_domains_install() {
  * Cleanup variables
  */
 function orderbox_domains_uninstall() {
-  drupal_set_message(t("Orderbox Domains modules and it's settings was removed."));
+  drupal_set_message(st("Orderbox Domains modules and it's settings was removed."));
   
 }

@@ -1,6 +1,7 @@
 name = Orderbox Domains
 description = Check or find available domain names for future registration.
 package = Orderbox
+dependencies[] = orderbox
 core = 7.x
 
 files[] = orderbox_domains.admin.inc

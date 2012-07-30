@@ -1,6 +1,7 @@
 name = Orderbox Login
 description = Login to your Orderbox Domain Control Panel from within a drupal site.
 package = Orderbox
+dependencies[] = orderbox
 core = 7.x
 
 files[] = orderbox_login.admin.inc
