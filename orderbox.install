@@ -14,6 +14,6 @@
  * Set message
  */
 function orderbox_install() {
-  drupal_set_message(st("Orderbox is installed.")));
+  drupal_set_message(st("Orderbox is installed."));
  
 }

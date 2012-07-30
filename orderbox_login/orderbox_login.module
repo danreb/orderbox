@@ -4,7 +4,7 @@
  * @file
  * Orderbox Login module.
  *
- * Allow Orderbox Customer to Login via a Login block interface inet_ntop
+ * Allow Orderbox Customer to Login via a Login block interface in
  * a Drupal site, notice that server side validation of this form is not
  * needed as this form will not submit any data in Drupal database.
  *
