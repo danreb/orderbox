@@ -14,6 +14,17 @@
  * Set message
  */
 function orderbox_install() {
-  drupal_set_message(st("Orderbox is installed."));
+  drupal_set_message(st("Orderbox is installed successfully."));
  
+}
+
+/**
+ * Implements hook_uninstall().
+ *
+ * Cleanup variables
+ */
+function orderbox_uninstall() {
+  variable_del('orderbox_reseller_id');
+  drupal_set_message(st("Orderbox modules was removed."));
+  
 }

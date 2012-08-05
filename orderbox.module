@@ -7,3 +7,31 @@
  * @author: Adolfo G. Nasol http://drupal.org/user/547004
  *
  */
+/**
+ * Implements hook_menu().
+ */
+function orderbox_menu() {
+  $items = array();
+  
+    $items['admin/config/system/orderbox'] = array(
+    'title' => 'Orderbox',
+    'description' => 'Orderbox Configuration and settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('orderbox_settings'),
+    'file' => 'orderbox.admin.inc',
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_NORMAL_ITEM,
+  );   
+   $items['admin/config/system/orderbox/login'] = array(
+    'title' => 'Orderbox',
+    'description' => 'Orderbox Login Settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('orderbox_settings'),
+    'file' => 'orderbox.admin.inc',
+    'access arguments' => array('administer site configuration'),
+    'weight' => -10, 
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+  ); 
+  
+  return $items;
+}

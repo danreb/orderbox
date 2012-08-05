@@ -23,45 +23,6 @@ function orderbox_login_help($path, $arg) {
 }
 
 /**
- * Implements hook_menu().
- */
-function orderbox_login_menu() {
-  $items = array();
-  
-    $items['admin/config/system/orderbox'] = array(
-    'title' => 'Orderbox',
-    'description' => 'Configuration and settings for Orderbox/Logicboxes Suite of Modules',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('orderbox_login_settings'),
-    'file' => 'orderbox_login.admin.inc',
-    'access arguments' => array('administer site configuration'),
-    'type' => MENU_NORMAL_ITEM,
-  );   
-   $items['admin/config/system/orderbox/login'] = array(
-    'title' => 'Login Block',
-    'description' => 'Login block Settings',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('orderbox_login_settings'),
-    'file' => 'orderbox_login.admin.inc',
-    'access arguments' => array('administer site configuration'),
-    'weight' => -8, 
-    'type' => MENU_DEFAULT_LOCAL_TASK,
-  ); 
-   $items['admin/config/system/orderbox/login'] = array(
-    'title' => 'Login Block',
-    'description' => 'Login block Settings',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('orderbox_login_settings'),
-    'file' => 'orderbox_login.admin.inc',
-    'access arguments' => array('administer site configuration'),
-    'weight' => -7, 
-    'type' => MENU_LOCAL_TASK,
-  ); 
-  
-  return $items;
-}
-
-/**
  * Implements hook_block_info().
  */
 function orderbox_login_block_info() {
@@ -97,8 +58,10 @@ function orderbox_login_block_view($delta = '') {
  */
 function orderbox_login_form() {
   $form = array();
+  module_load_include('php', 'Orderbox', '_includes/Orderbox');
+  $config = new OrderboxConfiguration();
   
-  $form['#action'] = variable_get('orderbox_login_action_url');
+  $form['#action'] = $config->get('servletUrl');
   $form['redirectpage'] = array(
    '#type' => 'hidden',
    '#value' => 'null',

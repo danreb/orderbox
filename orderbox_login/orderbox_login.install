@@ -14,11 +14,8 @@
  * Set message and default servlet URL.
  */
 function orderbox_login_install() {
-  $servleturl = 'https://www.foundationapi.com/servlet/AuthenticationServlet';
-   
-  variable_set('orderbox_login_action_url', $servleturl);
-  drupal_set_message(st("Orderbox Login is installed successfully. Click here to visit the <a href=@href>settings page</a>!", array('@href' => base_path() . 'admin/config/system/orderbox/login')));
- 
+  drupal_set_message(st("Orderbox Login successfully installed. Click here to <a href=@href>configure</a>!", array('@href' => base_path() . 'admin/config/system/orderbox/login')));
+
 }
 
 /**
@@ -27,10 +24,8 @@ function orderbox_login_install() {
  * Cleanup variables
  */
 function orderbox_login_uninstall() {
-  variable_del('orderbox_login_action_url');
   variable_del('orderbox_control_panel_branded_url');
-  variable_del('orderbox_reseller_id');
   variable_del('orderbox_allow_reseller_login');
-  drupal_set_message(st("Orderbox Login modules and it's settings was removed."));
+  drupal_set_message(st("Orderbox Login modules was removed."));
   
 }

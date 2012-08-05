@@ -23,7 +23,14 @@ function orderbox_domains_help($path, $arg) {
  */
 function orderbox_domains_menu() { 
   $items = array();
-  
+
+  $items['domains'] = array(
+    'title' => 'Find Domains',
+    'page callback' => 'orderbox_domains_page',
+    'access arguments' => array('View published content'),
+    'file' => 'orderbox_domains.pages.inc',
+    'type' => MENU_SUGGESTED_ITEM,
+  );  
   $items['admin/config/system/orderbox/domains'] = array(
     'title' => 'Domain Checker',
     'description' => 'Settings for Ordebox Domains',
@@ -58,8 +65,8 @@ function orderbox_domains_block_view($delta = '') {
 
   switch ($delta) {
     case 'orderbox_domains_block':
-      $block['subject'] = t('Find Domain Name');
-      $block['content'] = drupal_get_form('orderbox_domains_form');
+      $block['subject'] = t('Find Domain Names');
+      $block['content'] = drupal_get_form('orderbox_domains_mini_form');
       break;
   }
   return $block;
@@ -70,26 +77,37 @@ function orderbox_domains_block_view($delta = '') {
 * Orderbox Domain Form 
 *
 */
-function orderbox_domains_form($form, &$form_state) {
-  $options = array('.com', '.net', '.org');
+function orderbox_domains_mini_form($form, &$form_state) {
+  $options = array('com' => 'com', 'net' => 'net', 'org' => 'org');
   
-  $form['domain_name'] = array(
+  $form['#method'] = 'get';
+  $form['domain-name'] = array(
     '#type' => 'textfield',
-    '#default_value' => t('domain'),
+    '#default_value' => '',
+    '#attributes' => array('placeholder' => t('www.yourdomain')),
     '#size' => 15,
-    '#field_prefix' => t('www.'),
+    '#field_suffix' => '<span>' . '.' . '</span>',
   );
   $form['tld'] = array(
     '#type' => 'select',
     '#options' => $options,
-    '#default_value' => '.com',
+    '#default_value' => 'com',
     '#multiple' => FALSE,
   );
   $form['check'] = array(
     '#type' => 'submit',
     '#value' => t('Check'),
   );
-  $form['#method'] = 'get';
-
+ 
   return $form;
+  
+}
+
+/*
+ *  Wrapper around orderbox_domains_form_submit
+ */
+function orderbox_domains_mini_form_submit($form, &$form_state) {
+  module_load_include('inc', 'domains', 'orderbox_domains.pages');
+  orderbox_domains_form_submit($form, $form_state);
+  return;
 }
